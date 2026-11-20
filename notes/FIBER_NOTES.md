@@ -2,32 +2,45 @@
 
 What I tried on Fiber, how long it took, and what broke. Anything that looks like a Fiber bug gets filed upstream and linked here.
 
-## Week 0: first testnet payment ([date])
+## Week 0: first testnet payment (2026-11-20)
 
-Setup: [Intel Mac, macOS version], fnn [version], ckb-cli [version]. Two local nodes (A = vendor/payer, B = OjaSnap/receiver) connected through the public testnet nodes, following the [Public Nodes manual](https://github.com/nervosnetwork/fiber/blob/develop/docs/public-nodes.md).
+Setup: Intel Mac, fnn v0.10.1 (`d9b6bbd`, x86_64 darwin portable), ckb-cli v2.0.0. Two local nodes: A = vendor/payer (RPC 8227), B = OjaSnap/receiver (RPC 8238 P2P, 8237 RPC). Started from the [Public Nodes manual](https://github.com/nervosnetwork/fiber/blob/main/docs/public-nodes.md).
 
-| Step | Time taken | Notes / errors |
+Rough time: about 1.5 hours end to end on the first try, including setup mistakes (13:00 to 17:47 Lagos with breaks).
+
+| Step | Result | Notes / errors |
 | --- | --- | --- |
-| Download fnn and ckb-cli | | |
-| Create keys | | |
-| Fund from faucet | | |
-| Start nodes | | |
-| Open channel A to node1 | | |
-| Open channel B to node2 | | |
-| 3 payments A to B (1 CKB each) | | |
-| Close channels | | |
+| Download fnn and ckb-cli | Done | Safari auto-extracted the archives (`.tar.gz` became `.tar`, the ckb-cli zip became a folder). macOS Gatekeeper blocked the binaries until `xattr -d com.apple.quarantine`. |
+| Create keys | Done | Two ckb-cli accounts, private key exported into each node's `ckb/key`. |
+| Fund from faucet | Done | faucet.nervos.org gave 10,000 test CKB to each address. |
+| Start nodes | Done | Both nodes came up and connected to 2 bootnodes each. |
+| Open channel A to node1 / B to node2 (as in the manual) | **Failed** | `Peer not found`. The manual's testnet node1 (`02b6d4e3...`) and node2 (`0291a657...`) were not in the network graph (35 nodes) for fnn v0.10.1. |
+| Open channel A to onyxia bootnode (`0313dcf9...`) | ChannelReady | 499 CKB, single-funded: local 399, remote 0 (99 CKB reserve). |
+| Open channel B to thrall bootnode (`024714ca...`) | ChannelReady | Same: local 399, remote 0. |
+| Pay A to B through the relays | Not attempted | Relays put no balance on their side, so B had no inbound liquidity from thrall. |
+| Open direct channel A to B | ChannelReady | Connected by multiaddr `/ip4/127.0.0.1/tcp/8238/p2p/<B peer id>`. |
+| 1 CKB payment A to B | **Success** | First attempt failed with `no path found` because I sent it before the channel was ready. Second invoice paid. |
+| Close channels | Not yet | |
 
 **Evidence**
 
-- Channel funding tx (A): [hash, testnet explorer link]
-- Channel funding tx (B): [hash, testnet explorer link]
-- Payment hashes: [1], [2], [3]
-- Balances before and after: [A], [B]; total relay fees: [amount]
+- Channel funding tx, A to onyxia: [`0xecea166f0eb57d95267b46121dfff75fee55b6a9eef5848d04993b56c876dd22`](https://testnet.explorer.nervos.org/transaction/0xecea166f0eb57d95267b46121dfff75fee55b6a9eef5848d04993b56c876dd22)
+- Channel funding tx, B to thrall: [`0xeef057c0d0c8c12881765331a2baf7b8552f32c9af32d2042006c23855393cc7`](https://testnet.explorer.nervos.org/transaction/0xeef057c0d0c8c12881765331a2baf7b8552f32c9af32d2042006c23855393cc7)
+- Channel funding tx, A to B: [`0xc5bd20ab5b0095f87f772ecdcda56131c62646b74a7b059723eb43030eb87017`](https://testnet.explorer.nervos.org/transaction/0xc5bd20ab5b0095f87f772ecdcda56131c62646b74a7b059723eb43030eb87017)
+- Successful payment hash: `0x58a2c64ac4a36e1f8856b02b90c546dcfef5925334c156718bbb42f17c7d6f14` (1 CKB, invoice description "OjaSnap test caption", status `Success`, fee 0)
+- Settlement time: 67 ms between payment `created_at` and `last_updated_at` (2026-11-20 16:46:25 UTC)
+- Balances A to B channel: before local 399 / remote 0, after local 398 / remote 1
+- Failed attempt (kept for honesty): `0x542670e37aebb71914ebf8619ca5f40d8cfdcfab813fff5629374c0cb812d8dc`, `no path found`, sent before ChannelReady
+
+**What this means for OjaSnap**
+
+- A payment-gated caption needs the vendor to have outbound liquidity and OjaSnap to have inbound liquidity. Single-funded channels to public relays do not give a receiver inbound liquidity, so the pilot design must plan for it (e.g. OjaSnap opens channels to vendors, or a relay that dual-funds).
+- `get_payment` returning `Success` with a `payment_preimage` is the signal OjaSnap can use to release a caption.
 
 **What broke or confused me**
 
-- [ ]
+- [in my own words]
 
 **Upstream issues filed**
 
-- [ ]
+- [ ] Public Nodes manual: testnet node1/node2 pubkeys not reachable with fnn v0.10.1 (check whether an issue already exists before filing)
