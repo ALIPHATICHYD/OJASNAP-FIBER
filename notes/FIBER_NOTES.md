@@ -30,6 +30,7 @@ Rough time: about 1.5 hours end to end on the first try, including setup mistake
 - Successful payment hash: `0x58a2c64ac4a36e1f8856b02b90c546dcfef5925334c156718bbb42f17c7d6f14` (1 CKB, invoice description "OjaSnap test caption", status `Success`, fee 0)
 - Settlement time: 67 ms between payment `created_at` and `last_updated_at` (2026-11-20 16:46:25 UTC)
 - Balances A to B channel: before local 399 / remote 0, after local 398 / remote 1
+- Terminal screenshot of the whole run, ending in `Success`: [week0-payment-success.png](evidence/week0-payment-success.png)
 - Failed attempt (kept for honesty): `0x542670e37aebb71914ebf8619ca5f40d8cfdcfab813fff5629374c0cb812d8dc`, `no path found`, sent before ChannelReady
 
 **What this means for OjaSnap**
