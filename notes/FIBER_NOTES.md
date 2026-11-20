@@ -40,7 +40,11 @@ Rough time: about 1.5 hours end to end on the first try, including setup mistake
 
 **What broke or confused me**
 
-- [in my own words]
+- When I started setting up, the testnet relay nodes in the Public Nodes manual (node1 02b6d4e3..., node2 0291a657...) weren't on the network with fnn v0.10.1. connect_peer kept returning "Peer not found". I listed the network graph myself and ended up opening channels to the onyxia and thrall bootnodes instead.
+- The relays accepted my channels but put 0 CKB on their side, so B had no inbound liquidity and A couldn't pay B through them. I only understood this after reading the balances. I opened a direct A to B channel to get a working payment. For OjaSnap, this means I have to plan who funds the receiving side.
+- I sent my first payment before the A to B channel reached ChannelReady and got "no path found". That payment is marked Failed for good, so I had to create a new invoice.
+- On macOS, Safari auto-extracted the downloads (.tar.gz became .tar, and the zip became a folder), and Gatekeeper blocked fnn and ckb-cli until I removed the quarantine flag.
+- As someone new to CKB: amounts are in hex shannons (0xb9e459300 = 499 CKB), and each side keeps a 99 CKB reserve, which is why 499 funded showed as 399 usable.
 
 **Upstream issues filed**
 
