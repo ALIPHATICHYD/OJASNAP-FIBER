@@ -13,15 +13,9 @@ No names or phone numbers are published.
 | Weekly | 4 |
 | Monthly | 4 |
 
-## Price (follow-up with the 9 pay-as-you-go vendors)
+## Price
 
-| Per caption | Vendors |
-| --- | --- |
-| ₦10 | |
-| ₦20 | |
-| ₦50 | |
-| ₦100 | |
-| Wouldn't pay per caption | |
+Not asked as a fixed per-caption price yet. One vendor named ₦3,000 to ₦5,000 as a good monthly price (see Quotes). The pilot measures what vendors actually pay, per caption or per 5-caption bundle.
 
 ## Time
 
