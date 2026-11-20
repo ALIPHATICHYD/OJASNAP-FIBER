@@ -1,0 +1,7 @@
+# Fiber / CKB secrets: never commit these
+**/ckb/key
+exported-key*
+testnet-fnn/
+*.log
+.env
+node_modules/
