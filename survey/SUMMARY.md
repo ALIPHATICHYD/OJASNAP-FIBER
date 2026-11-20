@@ -2,8 +2,8 @@
 
 No names or phone numbers are published.
 
-- **Who:** 17 student vendors, reached through [community / word of mouth]
-- **When and how:** [dates], [Google Form / WhatsApp / in person]
+- **Who:** 17 student vendors, reached through the Web3 Unilag community, my own vendor friends, and other vendors I contacted on WhatsApp
+- **When and how:** from the start of November 2026, by word of mouth (in person and on WhatsApp). I recorded each answer myself instead of sending a form, because vendors are more likely to give a real answer in conversation than to fill in a form.
 
 ## How they would want to pay
 
@@ -25,7 +25,7 @@ No names or phone numbers are published.
 
 ## Time
 
-What vendors said about how long captions take today: [e.g. minutes per caption; hours to prepare a batch].
+Vendors brainstorm a caption for each product themselves. They said this takes from 30 minutes to over an hour, depending on how many products they are selling. OjaSnap generates a caption in under 10 seconds.
 
 ## Quotes
 
