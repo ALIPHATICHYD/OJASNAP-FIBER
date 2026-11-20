@@ -25,7 +25,7 @@ No names or phone numbers are published.
 
 ## Time
 
-Vendors brainstorm a caption for each product themselves. They said this takes from 30 minutes to over an hour, depending on how many products they are selling. OjaSnap generates a caption in under 10 seconds.
+Vendors brainstorm a caption for each product themselves. Writing captions for the batch of products they post that day takes them from 30 minutes to over an hour, depending on how many products they are selling. OjaSnap generates one caption in under 10 seconds.
 
 ## Quotes
 
