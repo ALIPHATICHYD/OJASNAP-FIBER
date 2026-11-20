@@ -29,7 +29,7 @@ Vendors brainstorm a caption for each product themselves. Writing captions for t
 
 ## Quotes
 
-- Vendor A (monthly): "3,000 naira to 5,000 naira is a good deal for monthly subscription."
+- Vendor A: "3,000 naira to 5,000 naira is a good deal for monthly subscription."
 - Vendor B: "I'd love to have a minimum batch of like 5 captions instead of doing the pay as you go."
 
 ## Limits
